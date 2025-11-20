@@ -222,4 +222,4 @@ def generate_presigned_url():
         print("Error generating URL:", e)
         return jsonify({'error': 'Failed to generate presigned URL'}), 500
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000)
