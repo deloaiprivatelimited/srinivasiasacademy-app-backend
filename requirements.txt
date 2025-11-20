@@ -1,0 +1,5 @@
+flask
+boto3
+mongoengine
+flask_Cors
+dotenv
