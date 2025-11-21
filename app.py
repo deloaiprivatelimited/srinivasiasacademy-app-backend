@@ -124,6 +124,7 @@ def home_content():
     data = {
         "heroImages": [
             "https://srinivas-ias-academy.s3.amazonaws.com/uploads/srinivas_ias_Academy_logo.jpeg",
+            "https://srinivas-ias-academy.s3.amazonaws.com/uploads/SRINIVAS_IAS_ACADEMY.png",
             "https://srinivas-ias-academy.s3.amazonaws.com/uploads/WhatsApp_Image_2025-11-10_at_3.11.41_PM_(1).jpeg",
         ],
 
