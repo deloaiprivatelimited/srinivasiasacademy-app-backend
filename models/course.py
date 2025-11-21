@@ -1,5 +1,5 @@
 from mongoengine import Document, StringField, ListField, ReferenceField, DecimalField, IntField, connect
-
+from models.chapter import replace_with_cloudfront
 from models.chapter import Chapter
 # Define a document for counting course IDs
 class CourseCounters(Document):
@@ -108,7 +108,7 @@ class Course(Document):
             "price": float(self.price),
             "whole_duration": self.whole_duration,
             "chapters": [chapter.to_json() for chapter in self.chapters],
-            "thumbnail_url": self.thumbnail_url,
+            "thumbnail_url": replace_with_cloudfront(self.thumbnail_url),
             "course_id": self.course_id,
             "students_enrolled": [student.to_json_withoutcourse() for student in self.students_enrolled]
         }
