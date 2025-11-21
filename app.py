@@ -119,6 +119,32 @@ def get_all_courses_students():
         print(e)
         return jsonify({'error': str(e)}), 500
 
+@app.route('/app/home-content', methods=['GET'])
+def home_content():
+    data = {
+        "heroImages": [
+            "https://srinivas-ias-academy.s3.amazonaws.com/uploads/srinivas_ias_Academy_logo.jpeg",
+            "https://srinivas-ias-academy.s3.amazonaws.com/uploads/WhatsApp_Image_2025-11-10_at_3.11.41_PM_(1).jpeg",
+        ],
+
+        "latestUpdates": [
+            {
+                "label": "UPSC Civil Services (Preliminary) Exam 2025 Notification Released",
+                "url": "https://upsc.gov.in/examinations/Civil%20Services%20(Preliminary)%20Examination,%20%202025"
+            },
+            {
+                "label": "UPSC Civil Services (Main) Examination 2025 — Timetable & Admit Card",
+                "url": "https://upsc.gov.in/examinations/Civil%20Services%20(Main)%20Examination,%202025"
+            },
+            {
+                "label": "KPSC KAS Recruitment 2025 — Mains Result Announcement Soon",
+                "url": "https://testbook.com/kpsc-kas"
+            }
+        ]
+
+    }
+
+    return jsonify(data), 200
 
 
 from models.package import Package
