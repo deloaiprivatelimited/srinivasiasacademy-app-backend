@@ -123,7 +123,7 @@ class Course(Document):
             "price": float(self.price),
             "whole_duration": self.whole_duration,
             # "chapters": [chapter.to_json() for chapter in self.chapters],
-            "thumbnail_url": self.thumbnail_url,
+            "thumbnail_url": replace_with_cloudfront(self.thumbnail_url),
             "course_id": self.course_id,
             # "students_enrolled": [student.to_json_withoutcourse() for student in self.students_enrolled]
         }
@@ -138,7 +138,7 @@ class Course(Document):
             "price": float(self.price),
             "whole_duration": self.whole_duration,
         "chapters": [chapter.to_json() for chapter in self.chapters if chapter.type != 'live_class'],
-            "thumbnail_url": self.thumbnail_url,
+            "thumbnail_url": replace_with_cloudfront(self.thumbnail_url),
             "course_id": self.course_id,
         }
         return json_data
