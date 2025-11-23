@@ -201,6 +201,41 @@ def login():
         return jsonify({'message': 'Login successful!','success':True}), 200
 
 
+@app.route('/student-signup', methods=['POST'])
+def student_signup():
+    try:
+        data = request.get_json()
+
+        name = data.get('name')
+        contact_number = data.get('contact_number')
+        email_id = data.get('email_id')
+        password = data.get('password')
+        ip_address = data.get('ip_address', 'NA')
+
+        if not all([name, contact_number, email_id, password]):
+            return jsonify({"error": "All required fields must be provided"}), 400
+
+        # Create new student
+        student = Student.add_student(
+            name=name,
+            contact_number=contact_number,
+            email_id=email_id,
+            password=password,
+            ip_address=ip_address
+        )
+
+        return jsonify({
+            "message": "Student created successfully",
+            "student": student.to_json_students()
+        }), 201
+
+    except ValueError as ve:
+        # Handles duplicate errors (email or contact already exists)
+        return jsonify({"error": str(ve)}), 409
+
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Internal server error"}), 500
 
 @app.route('/logout', methods=['POST'])
 def logout():
