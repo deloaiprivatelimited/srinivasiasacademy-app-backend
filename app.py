@@ -199,6 +199,10 @@ def login():
     if email == 'admin@azadicsacademy.com' and password == 'Azad@0000':
         session['user'] = email
         return jsonify({'message': 'Login successful!','success':True}), 200
+@app.route('/test_app', methods=['POST'])
+def test1():
+    
+        return jsonify({'message': 'Login successful!','success':True}), 200
 
 
 @app.route('/student-signup', methods=['POST'])

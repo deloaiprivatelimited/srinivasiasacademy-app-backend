@@ -17,9 +17,9 @@ aws_region = os.getenv("AWS_REGION")
 bucket_name = os.getenv("AWS_BUCKET")
 connect(host=os.getenv("MONGO_URI"))
 
-COURSE_DB_ID = "69212c5ca5ec4d270a15eaf8"  # _id of the course document in Mongo
+COURSE_DB_ID = "691dcd778997f0596bf231f3"  # _id of the course document in Mongo
 S3_BASE_URL = "https://srinivas-ias-academy.s3.amazonaws.com/"
-COMMON_THUMBNAIL = "https://d1ytcm2rfo0yep.cloudfront.net/files/thumbnails/Modern%20History-93aed42f-832e-4397-b556-b1baf575777c/ChatGPT%20Image%20Nov%2022%2C%202025%2C%2008_51_28%20AM.png"
+COMMON_THUMBNAIL = "https://d1ytcm2rfo0yep.cloudfront.net/files/thumbnails/srinivas_ias_Academy_logo.jpeg"
 
 # Create S3 client
 s3 = boto3.client(
@@ -41,7 +41,7 @@ if "Contents" in response:
 else:
     print("No objects found")
 
-# print(ALL_S3_KEYS)
+print(ALL_S3_KEYS)
 
 def get_video_duration_from_url(url: str) -> str:
     """
@@ -67,14 +67,25 @@ def get_video_duration_from_url(url: str) -> str:
 
 def is_karnataka_history_video(key: str) -> bool:
     key = key.strip()
-    # print(key)
-    if not key.startswith("HISTORY/Modern_History/"):
+    print(key)
+
+    allowed_prefixes = [
+        "HISTORY/Moderv_History_videos/"
+    ]
+
+    upper_key = key
+    print(upper_key)
+
+    # Must start with one of the allowed folders
+    if not any(upper_key.startswith(prefix) for prefix in allowed_prefixes):
         return False
-    # Ignore the folder itself
+
+    # Ignore folders
     if key.endswith("/"):
         return False
-    # Only video files
-    return key.lower().endswith((".mp4", ".m4v"))
+
+    # Allow only video extensions
+    return key.lower().endswith((".mp4", ".m4v", ".mov", ".avi", ".mkv"))
 
 def key_to_title(key: str) -> str:
     filename = os.path.basename(key)
@@ -89,9 +100,9 @@ def key_to_s3_url(key: str) -> str:
     return S3_BASE_URL + encoded_key
 
 
-# print("Courses in database:")
-# for course in Course.objects:
-#     print(f"{course.id} - {course.name}")
+print("Courses in database:")
+for course in Course.objects:
+    print(f"{course.id} - {course.name}")
 
 
 course = Course.objects(id=COURSE_DB_ID).first()
