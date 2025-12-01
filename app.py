@@ -7,7 +7,7 @@ from models.college import College
 import boto3
 import os
 
-
+from routes.console.parlour import bp as parlour_bp  # Import the parlour_bp Blueprint
 from routes.dmq import dmq_bp  # Import the dmq_bp Blueprint
 # Custom logger for print statements
 # print_logger = logging.getLogger('print_logger')
@@ -62,7 +62,7 @@ app.config['MONGODB_SETTINGS'] = {
      'host': 'mongodb://localhost:27017'  # Local MongoDB URI
  }
 connect(host=os.getenv("MONGO_URI"))
-
+app.register_blueprint(parlour_bp, url_prefix="/console/parlour")  # Register the parlour_bp Blueprint
 # Register the student Blueprint
 app.register_blueprint(student_bp, url_prefix='/admin/student')
 app.register_blueprint(course_bp, url_prefix='/admin/course')
@@ -199,10 +199,9 @@ def login():
     if email == 'admin@azadicsacademy.com' and password == 'Azad@0000':
         session['user'] = email
         return jsonify({'message': 'Login successful!','success':True}), 200
-@app.route('/test_app', methods=['POST'])
+@app.route('/test_app', methods=['GET'])
 def test1():
-    
-        return jsonify({'message': 'Login successful!','success':True}), 200
+    return jsonify({'message': 'Login successful!','success':True}), 200
 
 
 @app.route('/student-signup', methods=['POST'])
