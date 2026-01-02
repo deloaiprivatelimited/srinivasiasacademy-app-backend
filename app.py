@@ -33,6 +33,7 @@ from models.student import Student  # Import your models
 from routes.course import course_bp  # Import the course_bp Blueprint
 from routes.tests import test_blueprint
 from routes.questions import question_bp 
+from routes.cp  import applications_bp
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -68,6 +69,7 @@ app.register_blueprint(student_bp, url_prefix='/admin/student')
 app.register_blueprint(course_bp, url_prefix='/admin/course')
 app.register_blueprint(package_bp,url_prefix='/admin/package')
 app.register_blueprint(test_blueprint,url_prefix='/admin/test')
+app.register_blueprint(applications_bp,url_prefix='/admin/application')
 
 app.register_blueprint(question_bp,url_prefix='/admin/question')
 app.register_blueprint(dmq_bp, url_prefix='/admin')  # Register the dmq_bp Blueprint

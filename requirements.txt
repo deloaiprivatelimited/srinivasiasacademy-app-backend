@@ -3,3 +3,4 @@ boto3
 mongoengine
 flask_Cors
 dotenv
+Pillow

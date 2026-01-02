@@ -17,9 +17,9 @@ aws_region = os.getenv("AWS_REGION")
 bucket_name = os.getenv("AWS_BUCKET")
 connect(host=os.getenv("MONGO_URI"))
 
-COURSE_DB_ID = "691dcd778997f0596bf231f3"  # _id of the course document in Mongo
+COURSE_DB_ID = "692b2c61362fbcde95ef46af"  # _id of the course document in Mongo
 S3_BASE_URL = "https://srinivas-ias-academy.s3.amazonaws.com/"
-COMMON_THUMBNAIL = "https://d1ytcm2rfo0yep.cloudfront.net/files/thumbnails/srinivas_ias_Academy_logo.jpeg"
+COMMON_THUMBNAIL = "https://d1ytcm2rfo0yep.cloudfront.net/files/thumbnails/INDIAN%20POLITY-a9b7fbc0-953f-4ec1-b9e2-92440674c74d/WhatsApp%20Image%202025-11-29%20at%2010.48.16%20PM%20%282%29.jpeg"
 
 # Create S3 client
 s3 = boto3.client(
@@ -67,14 +67,14 @@ def get_video_duration_from_url(url: str) -> str:
 
 def is_karnataka_history_video(key: str) -> bool:
     key = key.strip()
-    print(key)
+    # print(key)
 
     allowed_prefixes = [
-        "HISTORY/Moderv_History_videos/"
+        "Polity/"
     ]
 
     upper_key = key
-    print(upper_key)
+    # print(upper_key)
 
     # Must start with one of the allowed folders
     if not any(upper_key.startswith(prefix) for prefix in allowed_prefixes):
@@ -113,21 +113,21 @@ for key in ALL_S3_KEYS:
     key = key.strip()
 
     if not is_karnataka_history_video(key):
-        print(f"Skipping key: {key}")
+        # print(f"Skipping key: {key}")
         continue
     else:
         print(f"Processing key: {key}")
 
     title = key_to_title(key)
-    print(title)
+    # print(title)
 
 
     raw_url = key_to_s3_url(key)
     video_url = raw_url
-    print(video_url)
+    # print(video_url)
     # exit()
 
-    # duration = get_video_duration_from_url(video_url)
+    duration = get_video_duration_from_url(video_url)
 
     video_chapter = VideoChapter(
         video_url=video_url,
@@ -149,4 +149,4 @@ for key in ALL_S3_KEYS:
     print(f"Created chapter: {title} | URL: {video_url} ")
 
 course.save()
-# print("All Karnataka History video chapters added to the course.")
+print("All Karnataka History video chapters added to the course.")
