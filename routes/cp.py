@@ -41,7 +41,6 @@ class InternApplications(Document):
 
 
 from flask import Blueprint, request, jsonify
-from models import GetEarlyAccessEmails, InternApplications
 
 applications_bp = Blueprint("applications", __name__)
 
