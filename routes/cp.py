@@ -97,3 +97,61 @@ def intern_application():
     application.save()
 
     return jsonify({"message": "Application submitted successfully"}), 201
+
+
+ADMIN_SECRET_KEY = "demo21"
+
+
+@applications_bp.route("/admin/early-access", methods=["GET"])
+def get_all_early_access_emails():
+    secret_key = request.args.get("secret_key")
+
+    if secret_key != ADMIN_SECRET_KEY:
+        return jsonify({"error": "Unauthorized access"}), 403
+
+    emails = GetEarlyAccessEmails.objects().order_by("-created_at")
+
+    data = [
+        {
+            "email": entry.email,
+            "created_at": entry.created_at
+        }
+        for entry in emails
+    ]
+
+    return jsonify({
+        "count": len(data),
+        "data": data
+    }), 200
+
+
+@applications_bp.route("/admin/intern-applications", methods=["GET"])
+def get_all_intern_applications():
+    secret_key = request.args.get("secret_key")
+
+    if secret_key != ADMIN_SECRET_KEY:
+        return jsonify({"error": "Unauthorized access"}), 403
+
+    applications = InternApplications.objects().order_by("-created_at")
+
+    data = [
+        {
+            "full_name": app.full_name,
+            "email": app.email,
+            "mobile_whatsapp": app.mobile_whatsapp,
+            "college_name": app.college_name,
+            "dept": app.dept,
+            "year": app.year,
+            "sem": app.sem,
+            "area_of_interest": app.area_of_interest,
+            "interest_reason": app.interest_reason,
+            "resume_url": app.resume_url,
+            "created_at": app.created_at
+        }
+        for app in applications
+    ]
+
+    return jsonify({
+        "count": len(data),
+        "data": data
+    }), 200
