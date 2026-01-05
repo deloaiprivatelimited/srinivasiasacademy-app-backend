@@ -35,7 +35,7 @@ from routes.tests import test_blueprint
 from routes.questions import question_bp 
 from routes.cp  import applications_bp
 from dotenv import load_dotenv
-
+from routes.console.privacy import bp as privacy_bp
 load_dotenv()
 
 from routes.package import package_bp
@@ -70,7 +70,7 @@ app.register_blueprint(course_bp, url_prefix='/admin/course')
 app.register_blueprint(package_bp,url_prefix='/admin/package')
 app.register_blueprint(test_blueprint,url_prefix='/admin/test')
 app.register_blueprint(applications_bp,url_prefix='/admin/application')
-
+app.register_blueprint(privacy_bp, url_prefix="/console/privacy")  # Register the privacy_bp Blueprint
 app.register_blueprint(question_bp,url_prefix='/admin/question')
 app.register_blueprint(dmq_bp, url_prefix='/admin')  # Register the dmq_bp Blueprint
 @app.route('/student-login', methods=['POST'])

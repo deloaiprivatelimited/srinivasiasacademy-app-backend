@@ -6,6 +6,7 @@ from mongoengine import (
     URLField
 )
 from datetime import datetime
+ADMIN_SECRET_KEY = "demo21"
 
 
 class GetEarlyAccessEmails(Document):
@@ -99,7 +100,6 @@ def intern_application():
     return jsonify({"message": "Application submitted successfully"}), 201
 
 
-ADMIN_SECRET_KEY = "demo21"
 
 
 @applications_bp.route("/admin/early-access", methods=["GET"])
