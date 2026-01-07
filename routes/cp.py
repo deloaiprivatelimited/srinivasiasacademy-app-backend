@@ -160,6 +160,8 @@ def get_all_intern_applications():
             "area_of_interest": app.area_of_interest,
             "interest_reason": app.interest_reason,
             "resume_url": app.resume_url,
+                    "status": app.status,          # ✅ ADD THIS
+
             "created_at": app.created_at
         }
         for app in applications
