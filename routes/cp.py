@@ -149,6 +149,7 @@ def get_all_intern_applications():
 
     data = [
         {
+            "_id": str(app.id),
             "full_name": app.full_name,
             "email": app.email,
             "mobile_whatsapp": app.mobile_whatsapp,
